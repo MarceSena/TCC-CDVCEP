@@ -4,8 +4,10 @@
   "description": "controle estatisco de processos usando cartas do tipo variavel",
   "main": "index.js",
   "scripts": {
-    "build":"tsc",
+    "build": "tsc",
     "start": "npm run-script build && node dist/index.js",
+    "lint":"eslint ./src ./test --ext .ts ",
+    "lint:fix":"eslint ./src ./test --ext .ts --fix ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +25,9 @@
     "@tsconfig/recommended": "^1.0.1",
     "@types/module-alias": "^2.0.0",
     "@types/node": "^15.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.25.0",
     "typescript": "^4.2.4"
   },
   "dependencies": {
