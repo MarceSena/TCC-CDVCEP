@@ -27,13 +27,16 @@
   "homepage": "https://github.com/MarceSena/TCC-CDVCEP#readme",
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
+    "@types/config": "0.0.38",
     "@types/express": "^4.17.11",
     "@types/jest": "^26.0.23",
     "@types/module-alias": "^2.0.0",
+    "@types/mongoose": "^5.10.5",
     "@types/node": "^15.0.0",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
+    "config": "^3.3.6",
     "eslint": "^7.25.0",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
@@ -46,6 +49,7 @@
     "@overnightjs/core": "^1.7.5",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "module-alias": "^2.2.2"
+    "module-alias": "^2.2.2",
+    "mongoose": "^5.12.5"
   }
 }
