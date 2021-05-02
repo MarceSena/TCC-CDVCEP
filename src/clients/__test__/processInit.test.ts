@@ -12,9 +12,10 @@ describe ('ProcessInit client', () => {
         const count = 5 ; 
          
         axios.get = jest.fn().mockResolvedValue(process_data);
-
         const processInit = new ProcessInit(axios);
         const response = await processInit.getDataProcess(max , min, count);
-        expect(response).toEqual(process_normalised_data);
+        const data = response.slice(0,2); 
+ 
+        expect(data).toEqual(process_normalised_data);
     });
 });
