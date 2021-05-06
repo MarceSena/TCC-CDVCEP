@@ -1,8 +1,11 @@
-{
+{ 
     "App":{
-        "port":3000,
-        "database":{
-            "mongoUrl":"mongodb://localhost/test"
+        "resource":{
+            "ProcessInit":{
+                "apiUrl": "http://www.randomnumberapi.com/api/v1.0/random?",
+                "apiToken": "do-not-hard-code"
+
+            }
         }
     }
 }

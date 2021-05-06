@@ -1,5 +1,6 @@
-import { AxiosStatic } from "axios";
-// É um arrey, não é um objeto, logo, ou eu procuro outra api, ou eu faço tudo como arrey
+import { InternalError } from '@src/util/errors/internal-errors';
+import { AxiosStatic } from 'axios';
+import config, { IConfig } from 'config';
 
 //tipo da resposta api externa
 export interface ProcessResponse {
@@ -7,24 +8,49 @@ export interface ProcessResponse {
 }
 
 //tipo de dados normalizados da classe que normaliza esses dados
-export interface DataNormalized{
-    dataProcessNormalized: ProcessResponse[];
+export interface DataNormalized {
+  dataProcessNormalized: ProcessResponse[];
 }
 
-export class ProcessInit{
-    constructor(protected request: AxiosStatic) {}
+export class ClientRequestError extends InternalError {
+  constructor(message: string) {
+    const internalMessage =
+      'Unexpected error when trying to comunicate to Process';
+    super(`${internalMessage} : ${message}`);
+  }
+}
 
-    public async getDataProcess(max: number,  mim:number, count:number): Promise< DataNormalized[]> {
-       const response = await this.request.get<ProcessResponse>('http://www.randomnumberapi.com/api/v1.0/random?min=${min}&max=${max}&count=${max}');
-       return this.normalizeDataResponse(response.data) ;
-    }   
-  
-    private normalizeDataResponse(dataProcessNormal: ProcessResponse): DataNormalized[]{
-        const dataProcess :DataNormalized = {
-            dataProcessNormalized : [dataProcessNormal]
+export class ProcessInit {
+  constructor(protected request: AxiosStatic) {}
+
+  public async getDataProcess(
+    max: number,
+    min: number,
+    count: number
+  ): Promise<DataNormalized[]> {
+    try {
+      const response = await this.request.get<ProcessResponse>(
+        `http://www.randomnumberapi.com/api/v1.0/random?min=${min}&max=${max}&count=${count}`,
+        {
+          headers: {
+            autorization: 'fake-token',
+          },
         }
-       
-        return [dataProcess]
-    
+      );
+      return this.normalizeDataResponse(response.data);
+    } catch (err) {
+      /* ${err.message} tenho que verificar isso*/
+      throw new ClientRequestError('Network Error');
     }
+  }
+
+  private normalizeDataResponse(
+    dataProcessNormal: ProcessResponse
+  ): DataNormalized[] {
+    const dataProcess: DataNormalized = {
+      dataProcessNormalized: [dataProcessNormal],
+    };
+
+    return [dataProcess];
+  }
 }
