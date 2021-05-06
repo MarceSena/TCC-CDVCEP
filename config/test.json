@@ -1,7 +1,7 @@
 { 
     "App":{
         "resource":{
-            "ProcessInit":{
+            "Process":{
                 "apiToken": "test-token"
 
             }

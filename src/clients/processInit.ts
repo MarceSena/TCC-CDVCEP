@@ -20,6 +20,9 @@ export class ClientRequestError extends InternalError {
   }
 }
 
+const processResourceConfig : IConfig = config.get('App.resource.Process')
+
+
 export class ProcessInit {
   constructor(protected request: AxiosStatic) {}
 
@@ -28,12 +31,13 @@ export class ProcessInit {
     min: number,
     count: number
   ): Promise<DataNormalized[]> {
+    console.log(processResourceConfig)
     try {
       const response = await this.request.get<ProcessResponse>(
-        `http://www.randomnumberapi.com/api/v1.0/random?min=${min}&max=${max}&count=${count}`,
+        `${processResourceConfig.get('apiUrl')}min=${min}&max=${max}&count=${count}`,
         {
           headers: {
-            autorization: 'fake-token',
+            autorization:  processResourceConfig.get('apiToken'),
           },
         }
       );
