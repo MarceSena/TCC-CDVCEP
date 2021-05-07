@@ -1,0 +1,10 @@
+{ 
+    "App":{
+        "resource":{
+            "Process":{
+                "apiToken": "test-token"
+
+            }
+        }
+    }
+}
