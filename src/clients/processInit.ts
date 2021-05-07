@@ -1,5 +1,5 @@
 import { InternalError } from '@src/util/errors/internal-errors';
-import { AxiosStatic } from 'axios';
+import * as HTTPUtil from '@src/util/request';
 import config, { IConfig } from 'config';
 
 //tipo da resposta api externa
@@ -20,24 +20,23 @@ export class ClientRequestError extends InternalError {
   }
 }
 
-const processResourceConfig : IConfig = config.get('App.resource.Process')
-
+const processResourceConfig: IConfig = config.get('App.resource.Process');
 
 export class ProcessInit {
-  constructor(protected request: AxiosStatic) {}
+  constructor(protected request = new HTTPUtil.Request()) {}
 
   public async getDataProcess(
     max: number,
     min: number,
     count: number
   ): Promise<DataNormalized[]> {
-    console.log(processResourceConfig)
+    console.log(processResourceConfig);
     try {
       const response = await this.request.get<ProcessResponse>(
         `${processResourceConfig.get('apiUrl')}min=${min}&max=${max}&count=${count}`,
         {
           headers: {
-            autorization:  processResourceConfig.get('apiToken'),
+            autorization: processResourceConfig.get('apiToken'),
           },
         }
       );
